@@ -1,7 +1,9 @@
-this folder is for defense lab. 
+This folder is for defense lab. 
 
 In "modified" folder, you can find two files, one is the device tree files, another file contains the defense codes.
 
 In "Read_SCR", it is an example of nailgun attack. You should replace the directory in "CROSS_COMPILE" (which is the position of your cross-compile tools), and "KERNELDIR" (which is the position of the compiled modules).
 
 We do not provide the source code of (1) linux kernel, and (2) cross-compile tool, because they are too big. We tell you how to download them in the Lab instruction.
+
+
