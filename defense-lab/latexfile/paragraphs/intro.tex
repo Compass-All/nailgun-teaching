@@ -1,0 +1,24 @@
+\section{Introduction}
+\label{sec:intro}
+
+
+\TheName{}~\cite{ning2019understanding} shows a severe vulnerability of the new debugging mechanism on the Arm architecture.
+Although the device manufacturers can defend against the attack by hardware-based modification (e.g., implementing a hardware-assisted control of the debug registers),
+they must launch a great callback of the affected devices, which triggers an unacceptable expense.
+To avoid the huge cost, we should design a software-level defense for \TheName{} attack.
+Then, deploying the defense can be implemented by a patch update via network, rather than the expensive callback.
+
+To achieve the defense, we first decide where to place it.
+Considering that the attacker controls the kernel (i.e., the Operating System),
+we must leverage a higher privilege to monitor or prevent the \TheName{} attack. i.e., the Secure layer or the Hypervisor layer.
+In this lab, we select the Hypervisor layer to deploy the defense. Specifically, we introduce an address translation, called Stage-2 translation. By configuring the translation regime, we prevent the access of the registers from the kernel-level attacker, while the access of other memory regions is unaffected.
+
+We consider the tasks of this lab as follows:
+
+\begin{itemize}
+	\item Understand partial components of Armv8-A architecture, including the exception levels (EL) and the translation regimes.
+	\item Understand how to use Raspberry PI 3 Module B+, and learn to burn the Linux kernel.
+	\item Design a defense of \TheName{}, and implement it by modifying the Linux kernel. 
+\end{itemize}
+
+In this lab, you are required to submit a report including \textbf{3} questions with 60\% and 40\% points, respectively. The question will be raised in the following sections.
