@@ -188,14 +188,22 @@ For more about kernel module programing and compiling, you can check this page:
 The Secure Configuration Register (SCR) is a register to configure properties of the Secure State. Normally it is only accessible in Secure privileged mode. You can check the details of the register in Arm Architecture Reference Manual Armv8-A. You need to look up Arm Reference Manual in the resource folder for detail information about this register. Since the amount of the pages is huge, I do not suggest you read the entire book.
 
 % Base on simple\_module.c, we access SCR. In the init function we try to read the SCR via assembly code.
+
+In this task, we try to directly read SCR. However, the instruction in following code is not complete. Luckily, the Arm Reference Manual clearly describes how to access SCR. In the section \textbf{Accessing SCR}, an instruction is introduced to directly access SCR, which is shown in Fig~\ref{fig:access_scr}. Here are meanings of parameters in Fig~\ref{fig:access_scr}. 
+
+\begin{itemize}
+  \item The target coprocessor, specified by the coproc parameter and taking a value between p0 for CP0 and p15 for CP15.
+  \item The primary coprocessor register, specified by the CRn parameter and taking a value between c0 and c15.
+  \item The secondary coprocessor register, specified by the CRm parameter and taking a value between c0 and c15.
+  \item Up to two additional parameters, opc1 and opc2, taking values between 0 and 7.
+\end{itemize}
+
 \begin{figure}[h]
   \centering
   \includegraphics[scale=.50]{Accessing_SCR.png}
   \caption{Description on how to access SCR}
   \label{fig:access_scr}
 \end{figure}
-
-In this task, we try to directly read SCR. Luckily, the Arm Reference Manual clearly describes how to access SCR. In the section \textbf{Accessing SCR}, an instruction is introduced to directly access SCR, which is shown in Fig~\ref{fig:access_scr}. However, the instruction in following code is not complete.
 
 \textbf{Task 2.a:} What is the complete instruction? Look up the manual and fill the instruction bellow. Then compile and execute.
 
@@ -206,7 +214,7 @@ In this task, we try to directly read SCR. Luckily, the Arm Reference Manual cle
 static int __init simple_module_init(void)
 {
   uint32_t reg;
-  asm volatile("mrc p15, 0, %0, c1, <fill here>, <fill here>":"=r"(reg));
+  asm volatile("mrc p15, 0, %0, <fill here>, <fill here>, <fill here>":"=r"(reg));
   printk(KERN_INFO "SCR %x.\n", reg);
   return 0;
 }
@@ -217,7 +225,7 @@ static int __init simple_module_init(void)
 A segmentation fault occurs when you install this kernel module. If you check the log using dmesg command, you will find out the reason of the segmentation fault is because of invalided access. 
 % That's because the running LKM has the same privilege of the OS kernel, non-secure EL1, while normally SCR is only accessible in secure state.
 
-\textbf{Task 2.b:} Question: why the segmentation fault occurs?
+\textbf{Task 2.b:} Question: Why the segmentation fault occurs?
 
 \subsection{Task 3: Read the Debug Authentication Signal}
 
