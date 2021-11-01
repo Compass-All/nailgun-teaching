@@ -140,7 +140,7 @@ The keyword asm gives the ability to embed assembly language source code within 
 
 \end{lstlisting}
 
-Building the kernel module is different from building user space applications. In this lab, we use Makefile, a powerful tool for compiling, to build our LKM. Create a file named Makefile in the same directly. Here is the content of the Makefile for compiling a module named simple\_module.c
+Building the kernel module is different from building user space applications. In this lab, we use Makefile, a powerful tool for compiling, to build our LKM. Create a file named Makefile in the same directory. Here is the content of the Makefile for compiling a module named simple\_module.c
 
 \begin{lstlisting}
 obj-m += simple_module.o
@@ -180,9 +180,15 @@ For more about kernel module programing and compiling, you can check this page:
 
 The Secure Configuration Register (SCR) is a register to configure properties of the Secure State. Normally it is only accessible in Secure privileged mode. You can check the details of the register in Arm Architecture Reference Manual Armv8-A. You need to look up Arm Reference Manual in the resource folder for detail information about this register. Since the amount of the pages is huge, I do not suggest you read the entire book.
 
-% Base on simple\_module.c, we access SCR. In the init function we try to rsead the SCR via assembly code.
+% Base on simple\_module.c, we access SCR. In the init function we try to read the SCR via assembly code.
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=.50]{Accessing_SCR.png}
+  \caption{Description on how to access SCR}
+  \label{fig:access_scr}
+\end{figure}
 
-In this task, we try to directly read SCR. Luckily, the Arm Reference Manual clearly describes how to access SCR. In the section \textbf{Accessing SCR}, an instruction is introduced to directly access SCR. However, the following instruction is not complete. 
+In this task, we try to directly read SCR. Luckily, the Arm Reference Manual clearly describes how to access SCR. In the section \textbf{Accessing SCR}, an instruction is introduced to directly access SCR, which is shown in Fig~\ref{fig:access_scr}. However, the instruction in following code is not complete.
 
 \textbf{Task 2.a:} What is the complete instruction? Look up the manual and fill the instruction bellow. Then compile and execute.
 
@@ -218,7 +224,7 @@ In Armv8a AArch32, the information of the signal is stored in DBGAUTHSTATUS, Deb
 
 \subsection{Task 4: Enable the Halting Debug}
 
-Now we start the journey to break TrustZone isolation. The debug component and Cross-Trigger Interface (CTI) are hardware modules supporting external debug. Each core will have a group of debug component and CTI. Normally we manipulate the component by writing its registers. The first step is to enable the debug and CTI functionality. You need to complete step 1.
+Now we start the journey to break TrustZone isolation. The debug component and Cross-Trigger Interface (CTI) are hardware modules supporting external debug. An External Debug Request debug event is generated when signaled by the embedded cross-trigger. Each core will have a group of debug component and CTI. Normally we manipulate the component by writing its registers. The first step is to enable the debug and CTI functionality. You need to complete step 1.
 
 We should unlock External Debug Lock Access Register (EDLAR). Look up Arm Reference Manual to find the detail explanation about manipulating it. Then unlock the OS Lock by controlling OS Lock Access Register (OSLAR).
 
