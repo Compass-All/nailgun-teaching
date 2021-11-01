@@ -34,7 +34,12 @@ Nailgun Attack by pass the privilege isolation on Arm via debug mechanism. The a
 % a detailed explanation on this vulnerability~(Chapter 8). 
 
 The objective of this lab is for student to gains the hands-on experience on
-Nailgun Attack. We prepare Raspberry Pi 3 Model B+ as the target, who owns a 64-bit Armv8a SoC. However, the lab instruction is base on AArch32 (32-bit OS). In this lab, you may look up some materials frequently to get some help, for example, Arm Reference Manual. As we introduced on lecture, Arm has several exception level in each state. And you should be clear which mode processors be in.
+Nailgun Attack. We prepare Raspberry Pi 3 Model B+ as the target, who owns a
+64-bit Armv8a SoC. However, the lab instruction is base on AArch32 (32-bit OS).
+In this lab, you may look up some materials frequently to get some help, for
+example, Arm Reference Manual. As we introduced on lecture, Arm has several
+exception levels in each state. And you should be clear which mode processors be
+in.
 
 % The objective of this lab is for students to gain the hands-on experience on
 % the Dirty COW attack, understand the race condition vulnerability exploited by
@@ -87,9 +92,11 @@ When you finish that, click open and login your Raspberry Pi with username pi an
 % \section{Read a High Privilege Register}
 \section{Lab Tasks}
 
-The objective of this task is to understand the Linux kernel module and apply Nailgun Attack to read a system register with EL3 permission. For
-preparation, you need to install two packages, build-essential and
-raspberrypi-kernel-headers. If you use our Linux Image, you can skip this step.
+The objective of this task is to understand the Linux kernel module and apply
+Nailgun Attack to read a system register with EL3 permission. A 32-bit Raspi OS
+is running on the Raspberry Pi. If you prepare another 32-bit OS yourself, you
+need to install two packages, build-essential and raspberrypi-kernel-headers. If
+you use our Linux Image, you can skip this step.
 
 \begin{lstlisting}
 $ sudo apt install build-essential raspberrypi-kernel-headers
@@ -220,7 +227,7 @@ In Armv8a AArch32, the information of the signal is stored in DBGAUTHSTATUS, Deb
 
 \textbf{Task 3.a:} Question: What is the instruction to read DBGAUTHSTATUS? Suppose we want to store it in Rt.
 
-\textbf{Task 3.b:} Take single\_module.c as an example, write your kernel module to read the signal. A screenshot of the result is needed, and tell us what you get from the result.
+\textbf{Task 3.b:} Take single\_module.c as an example, write your kernel module to read the signal. A screenshot of the result is needed, and tell us what is the meaning of the result.
 
 \subsection{Task 4: Enable the Halting Debug}
 
