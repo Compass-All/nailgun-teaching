@@ -129,15 +129,14 @@ The keyword asm gives the ability to embed assembly language source code within 
    */
   static int __init simple_module_init(void)
   {
-    uint32_t reg;
-    printk("Hello world.\n", reg);
+    printk("Hello world.\n");
     return 0;
   }
   
   /*
    * The cleanup function of the module.
    */
-  static int __exit simple_module_exit(void)
+  static void __exit simple_module_exit(void)
   {
     prink(KERN_INFO "Exit.\n");
   }
