@@ -16,29 +16,34 @@ The official kernel is compiled as 32-bit Armv8-A architecture.
 \subsubsection{Boot directory}
 
 In the SD card file system, it contains a directory, "boot", which stores the important configurations ("config.txt"), kernel ("kernel.img" or "kernel7.img"), device tree files ("*.dtb"), and etc.
-In this lab, you should replace the \textbf{kernel} and necessary \textbf{device tree files}. You may use the configurations to support HDMI.
+In this lab, you should replace the \textbf{kernel} and necessary 
+\textbf{device tree files}. 
 
 \subsubsection{Source Code of Linux Kernel}
 
 In the following instructions, you should download the source codes of the Linux kernel, and compile them.
-You can download it here (version 4.14):
+You can use the prepared files, or download it from the official 
+website:
 
 \begin{lstlisting}
 git clone http://github.com/raspberrypi/linux -b rpi-4.14.y
 \end{lstlisting}
 
-\subsubsection{(Optional) Cross-compile Tools}
+\subsubsection{(Cross-compile Tools}
 
 You can compile the kernel on a virtual machine, then copy kernel image, dtb files, and modules into the disk.
-However, since you want to compile a \texttt{Arm}-based kernel, and your virtual machine is \texttt{x86} architecture, you must use the \textbf{Cross Compile} tools to achieve your goal.
+However, since you want to compile a \texttt{Arm}-based kernel, and 
+your virtual machine (Ubuntu) is \texttt{x86} architecture, you must 
+use the \textbf{Cross Compile} tools to build the \texttt{Arm} files 
+on \texttt{x86} architecture.
 
-Here is the source of the tools:
+You can use the prepared files, or download it from the official 
+website:
 
 \begin{lstlisting}
 git clone git://github.com/raspberrypi/tools.git
 \end{lstlisting}
 
-When you \texttt{make} the kernel in 64-bit Ubuntu, you must configure the position of your compilation tools (\texttt{CROSS\_COMPILE}).
 
 
 
@@ -63,13 +68,10 @@ Detailed usage of exception levels are listed as follows:
 	\label{fig:armel}
 \end{figure}
 
-
-Generally, if the lower-level user wants to use the feature in higher exception levels (for instance, an application requires a memory region to place the data).
-It will generate an exception (this is not a bad word), which will be handled by the corresponding exception handler in the higher ELs.
-Usually, such procedure is safe, because the normal system should not leave a "backdoor" (such as providing a root privilege for the user) in the exception handlers. However, the \TheName{} leverages the debugging mechanism to jump to higher exception levels and execute arbitrary codes which do not exist in any exception handlers. Therefore, we regard the behavior as an "attack".
-
 In this lab, we assume the attacker controls EL0 \& EL1, and we design a defense on EL2.
-Note that the EL1 attacker cannot directly access the resource in EL2 (You can try to read an EL2 register in a kernel module, and find the module is crashed). 
+Note that the EL1 attacker cannot directly access the resource in EL2 
+(You can try to read an EL2 register in a kernel module, and find 
+that the module is crashed). 
 
 
 \begin{figure}[htb]

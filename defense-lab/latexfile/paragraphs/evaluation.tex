@@ -6,11 +6,10 @@
 To prove the effectiveness, we first load a \TheName{} kernel module on the Raspberry PI to prove the vulnerability.
 Then, we burn the kernel with the defense on the same Raspberry PI and load the \TheName{} kernel module.
 
-Once the module is loaded, the system will \textbf{hang} since (1) it generates a translation fault or so-called as an \textbf{exception} 
+Once the module is loaded, the system will \textbf{hang} (or 
+\textbf{crash}) since (1) it generates a translation fault or 
+so-called as an \textbf{exception} 
 (2) the corresponding exception handler asks to jump to the current address (in assembly language is "\texttt{b .}"), and triggers an endless loop.
 The Linux kernel does not process the exceptions well in EL2 or EL3.
 
 
-\subsection{Performance Evaluation}
-
-As we said in Section~\ref{sec:intro}, we only leverage the Stage-2 translation that generate \textbf{negligible} performance overhead. To prove it, you can run several \textbf{benchmarks} on the native system and the defense-enabled system. For instance, the \textit{Sysbench}~\cite{sysbench}. You can find the website with the manual in the Reference. You can also run other benchmarks to measure the performance.
