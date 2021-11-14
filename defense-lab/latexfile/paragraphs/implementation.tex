@@ -9,6 +9,22 @@ We strongly recommend you to prepare a \textbf{copy} of "Raw" kernel and dtb fil
 
 Note that we will give the instructions of "compiling the kernel on Virtual Machine" instead of "compiling the kernel on Raspberry Pi". Actually the latter choice does not require the Cross-compile tools, but it is TOO SLOW.
 
+\subsubsection{Warn}
+
+(1) The Raspberry Pi OS with GUI (\textbf{Desktop}) may conflict with the replaced kernel, you should change it as "boot to command line"(\textbf{CLI}) before you replace it.
+
+To change it, you can execute command 
+
+\begin{lstlisting}
+	sudo raspi-config
+\end{lstlisting}
+
+Then go to "Boot Options", and choose the boot to CLI.
+
+You can also configure it in the Desktop. Click the top-left raspberry icon, select "Preference", then "Raspberry Pi Configuration". In "System", select "Boot" as "to CLI".
+
+(2) Moreover, you should power the Raspberry Pi with the "Micro USB Port" instead of "GPIO".
+
 \subsubsection{Compile}
 
 Once you download the kernel, you can compile it.  Since Raspberry PI 
@@ -482,7 +498,7 @@ descriptor, and (2) value of each descriptor.
 
 \textbf{Question 4:(30\%)} With the provided source codes, can you 
 explain 
-the process of traslating an IPA, \texttt{0x40030000}+"last 7 numbers 
+the process of traslating an IPA, \texttt{0x40000000}+"last 7 numbers 
 of your student ID", to the same value of PA? (e.g., if your ID is 
 12150073, then you should translate \texttt{0x42150073}).
 In this question, you should mention the (1) address of each 
